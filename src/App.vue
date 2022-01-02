@@ -1,28 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <template v-for="item in $router.options.routes">
+      <router-link
+        :class="['link']"
+        v-if="item.path !== '/'"
+        :to="item.path"
+        :key="item.path"
+        >{{ item.meta.name }}</router-link
+      >
+    </template>
+    <hr />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  created() {
+    console.log(this.$route);
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.link {
+  background-color: #f5f5f5;
+  display: inline-block;
+  margin: 7px;
+  color: black;
+  text-decoration: none;
+  border: 1px solid black;
+  border-radius: 40%;
+  padding: 5px;
+  box-shadow: 0 0 2px 2px skyblue;
+}
+.router-link-active {
+  box-shadow: 0 0 4px 4px inset skyblue;
 }
 </style>
